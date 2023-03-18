@@ -1,74 +1,102 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import GoogleIcon from "../assets/GoogleIcon";
+import { AuthContext } from "../context/AuthContext";
+
 
 
 const Register = () => {
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const {createUser,signUpProvider} = useContext(AuthContext)
+
+  const handleSubmit =(e)=>{
+    e.preventDefault()
+    const displayName=`${firstName} ${lastName}`
+    createUser(email,password,displayName);
+  }
+
+
+  // //*birleştirilmiş state
+  // const [info,setInfo]=useState({
+  //   firstName:"",
+  //   lastName:"",
+  //   email:"",
+  //   password:"",
+  // })
+
+  // const {email,password,firstName,lastName} = info;      //inputlara bu degerlerden oluşan ıd vermek gerekir
+  // const handleChange=(e)=>
+  // setInfo({...info,[e.target.id]:e.target.value})
+
+ return (
    
-    return (
-      <div className="d-flex justify-content-center">
-          <div className="form-image">
-            <img src={"https://picsum.photos/800/800"} alt="sample-movie" />
-          </div>
-        <div className="register-form">
-          <h1 className="form-title display-3">Register</h1>
-          <form id="register" >
-            <div className="mb-3">
-              <label htmlFor="first-name" className="form-label">
-                First Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="first-name"
-                placeholder="Enter your first name.."
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="last-name" className="form-label">
-                Last Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="last-name"
-                placeholder="Enter your last name.."
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                placeholder="Enter your email adress.."
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                placeholder="Enter your password.."
-                required
-              />
-            </div>
-            <input
-              type="submit"
-              className="btn btn-primary form-control"
-              value="Register"
-            />
-          </form>
-        </div>
+  <div className="overflow-hidden flex-1 h-screen justify-center items-center bg-[#23242a]">
+   <div className={`form-container mt-[5vh] w-[380px] h-[580px]`}>
+    <form onSubmit={handleSubmit}>
+      <h2 className="text-red-main text-2xl font-[500] text-center tracking-[0.1em] mb-3">
+        Sign Up
+      </h2>
+      <div className="relative z-0 w-full mb-6 group">
+        <input
+          type="text"
+          name="floating_text"
+          className="peer"
+          placeholder=" "
+          required
+         onChange={(e)=> setFirstName(e.target.value)}
+        />
+        <label htmlFor="floating_email">First Name</label>
       </div>
-    );
-  };
-  
-  export default Register;
-  
+      <div className="relative z-0 w-full mb-6 group">
+        <input
+          name="floating_text"
+          type="text"
+          required
+          className="peer"
+          placeholder=" "
+          onChange={(e)=> setLastName(e.target.value)}
+        />
+        <label htmlFor="floating_text">Last Name</label>
+      </div>
+      <div className="relative z-0 w-full mb-6 group">
+        <input
+          name="floating_email"
+          type="email"
+          className="peer"
+          placeholder=" "
+          required
+          onChange={(e)=> setEmail(e.target.value)}
+        />
+        <label htmlFor="floating_email">Email</label>
+      </div>
+      <div className="relative z-0 w-full mb-6 group">
+        <input
+          name="floating_password"
+          type="password"
+          className="peer"
+          placeholder=" "
+          required
+          onChange={(e)=> setPassword(e.target.value)}
+        />
+        <label htmlFor="floating_password">Password</label>
+      </div>
+      <button className="btn-danger" type="submit">
+        Register
+      </button>
+      <button
+        className="flex justify-between text-center btn-danger"
+        type="button" onClick={()=> signUpProvider()}
+      >
+        Continue with Google
+        <GoogleIcon color="currentColor" />
+      </button>
+    </form>
+  </div>
+</div>
+);
+};
+
+export default Register;

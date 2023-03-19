@@ -1,29 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import MovieCard from "../components/MovieCard";
+import {MovieContext} from "../context/MovieContext";
+
 
 
 
 const Main = () => {
-
-
+  const {movies} =useContext(MovieContext)
   
-    return (
-  
-  
-      <>
-  
-        <form className="search">
-          <input
-            type="search"
-            className="search-input"
-            placeholder="Search a movie..."
-            value="searchTerm"
-          />
-          <button type="submit">Search</button>
-        </form>
-        <div className="d-flex flex-wrap justify-content-center">
-         card
+    return (    
+     <div>
+       <div className="flex justify-center flex-wrap">
+        {movies.map((movie)=><MovieCard key={movie.id} {...movie}/>)}
         </div>
-      </>
+     </div>
     )
   };
   

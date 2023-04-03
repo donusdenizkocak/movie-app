@@ -1,3 +1,4 @@
+import React from "react";
 import { ToastContainer } from "react-toastify";
 import AuthContextProvider from "./context/AuthContext";
 import MovieContextProvider from "./context/MovieContext";
@@ -6,7 +7,7 @@ import AppRouter from "./router/AppRouter";
 
 function App() {
   return (
-    <div className="App">
+    <div className="dark:bg-gray-dark-main">
       <AuthContextProvider>
         <MovieContextProvider>
         <AppRouter/>

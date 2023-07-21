@@ -1,13 +1,31 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
-import {MovieContext} from "../context/MovieContext";
+import { AuthContext } from "../context/AuthContext";
+import { MovieContext } from "../context/MovieContext";
+import { toastWarnNotify } from "../helpers/ToastNotify";
 
 
 
-
+const API_KEY = process.env.REACT_APP_TMDB_KEY;
+const SEARCH_API = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
 const Main = () => {
-  const {movies,loading} =useContext(MovieContext)
+  const {movies,loading,getMovies} =useContext(MovieContext)
   const [searchTerm, setSearchTerm] = useState("")
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (currentUser && searchTerm) {
+      getMovies(SEARCH_API + searchTerm);
+    } else if (!currentUser) {
+      toastWarnNotify("please log in to search a movie");
+      navigate("/login");
+    } else {
+      toastWarnNotify("please enter a text");
+    }
+  };
+
     return (    
      <>
        <form className="flex justify-center p-2 mt-4" onSubmit={{handleSubmit}}>
@@ -28,7 +46,7 @@ const Main = () => {
           >
             <span className="visually-hidden">Loading...</span>
           </div>)
-        :(movies.map((movie)=><MovieCard key={movie.id} {...movie}/>))}
+        :(movies?.map((movie)=><MovieCard key={movie.id} {...movie}/>))}
         </div>
      </>
     )

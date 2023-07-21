@@ -11,11 +11,11 @@ import { AuthContext } from "../context/AuthContext";
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const {signIn,signUpProvider} = useContext(AuthContext)
+  const {signIn,signUpProvider,forgotPassword} = useContext(AuthContext)
 
 const handleSubmit =(e) => {
   e.preventDefault();
-  signIn(email,password)
+  signIn(email, password);
 }
 
   return (
@@ -48,7 +48,7 @@ const handleSubmit =(e) => {
             <label htmlFor="floating_password">Password</label>
           </div>
           <div className="flex justify-between">
-            <span className="py-3 font-[0.75em] cursor-pointer decoration-none text-gray-500 hover:text-[#ff4b45]">
+            <span  onClick={() => forgotPassword(email)} className="py-3 font-[0.75em] cursor-pointer decoration-none text-gray-500 hover:text-[#ff4b45]">
               Forgot Password
             </span>
             <Link

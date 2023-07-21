@@ -7,7 +7,7 @@ export const toastWarnNotify = (msg) => {
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
-    progress: undefined,
+    progress: undefined
   });
 };
 
@@ -18,7 +18,7 @@ export const toastSuccessNotify = (msg) => {
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
-    progress: undefined,
+    progress: undefined
   });
 };
 
@@ -29,6 +29,6 @@ export const toastErrorNotify = (msg) => {
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
-    progress: undefined,
+    progress: undefined
   });
 };
